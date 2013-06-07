@@ -52,14 +52,16 @@ var MESSAGE_WARNING = 'alert-warining',
 
 
 (function($) {
-    var MessageEntry = function(text, type, timeout) {
+    var MessageEntry = function(text, type, timeout, id) {
         var text,
             type,
-            timeout;
+            timeout,
+            id;
 
         this.text = text;
         this.type = type;
         this.timeout = timeout;
+        this.id = id;
 
         this.show = function() {
             console.log('show: ' + this.text + ", " + this.type + ", " + this.timeout);
@@ -81,10 +83,11 @@ var MESSAGE_WARNING = 'alert-warining',
                 $('div.alert').css('display', 'none');
             });
         };
-    }
+    };
 
     var messageQueue = [],
-        currentMessage = null;
+        currentMessage = null,
+        globalId = 0;
 
     window.messageQueue = messageQueue;
     window.currentMessage = currentMessage;
@@ -113,24 +116,40 @@ var MESSAGE_WARNING = 'alert-warining',
     }
 
     $.bootstrapMessage = function(text, type, timeout) {
-        if (undefined === typeof timeout) {
+        var id = ++globalId;
+        if ('undefined' === typeof timeout) {
             timeout = 0;
         }
-        messageQueue.push(new MessageEntry(text, type, 0));
+        messageQueue.push(new MessageEntry(text, type, timeout, id));
+
+        return id;
     }
 
     $.bootstrapMessageLoading = function() {
-        $.bootstrapMessage('<img src="/img/loading.gif"/>', 'info');
+        return $.bootstrapMessage('<img src="/img/loading.gif"/>', 'info');
     }
 
-    $.bootstrapMessageOff = function() {
-        $('div.alert').fadeTo('slow', 0.0, function() {
-            $('div.alert').css('display', 'none');
-        });
+    $.bootstrapMessageOff = function(id) {
+        console.log("bootstrapMessageOff id: " + id);
+        console.log(messageQueue);
+        if (null !== currentMessage && currentMessage.id === id) {
+            // Fade out message being displayed.
+            currentMessage.hide();
+            currentMessage = null;
+        } else {
+            // Search for message on messageQueue and delete it.
+            for (var i = 0; i < messageQueue.length; i++) {
+                if (messageQueue[i].id === id) {
+                    messageQueue.splice(i, 1);
+                    break;
+                }
+            }
+        }
     }
 
     $.bootstrapMessageAuto = function(text, type) {
-        messageQueue.push(new MessageEntry(text, type, DEFAULT_TIMEOUT));
+        messageQueue.push(new MessageEntry(text, type, DEFAULT_TIMEOUT, ++globalId));
+        return globalId;
     }
 
     $('.close-lightly').live('click', function(e) {
