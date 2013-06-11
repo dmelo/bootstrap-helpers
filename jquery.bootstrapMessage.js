@@ -152,11 +152,11 @@ var MESSAGE_WARNING = 'alert-warining',
         return globalId;
     }
 
-    $('.close-lightly').live('click', function(e) {
+    $(document).on('click', '.close-lightly', function(e) {
         $(this).parent().fadeTo('slow', 0.0);
     });
 
-    $('.close').live('click', function(e) {
+    $(document).on('click', '.close', function (e) {
         e.preventDefault();
         $.bootstrapMessageOff();
     });
