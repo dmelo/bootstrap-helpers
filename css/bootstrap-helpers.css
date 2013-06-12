@@ -1,0 +1,12 @@
+.alert {
+    z-index: 3;
+    width: 600px !important;
+    opacity: 0;
+    filter: alpha (opacity = 0);
+    position: fixed;
+    margin-top: 0px;
+    top: 52px;
+    display: none;
+}
+
+

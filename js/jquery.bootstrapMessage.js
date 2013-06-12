@@ -162,6 +162,7 @@ var MESSAGE_WARNING = 'alert-warining',
     });
 
     $(document).ready(function() {
+        $('.alert').css('left', ($(window).width() - 600) / 2);
         setInterval($.bootstrapMessageRun, 1000);
     });
 })(jQuery);
