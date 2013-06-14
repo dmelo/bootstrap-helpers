@@ -46,7 +46,7 @@
             $('body').append('<div id="load-modal-wrapper" class="modal hide fade"><div class="modal-header"><a href="#" class="close" data-dismiss="modal">&times;</a><h3></h3></div><div class="modal-body"></div></div>');
         }
 
-        $('.loadModal').live('click', function(e) {
+        $(document).on('click', '.loadModal', function(e) {
             e.preventDefault();
             var callback = $(this).attr('id');
             if(0 == lock) {
@@ -113,7 +113,7 @@
             }
         });
 
-        $('#cancel').live('click', function(e) {
+        $(document).on('click', '#cancel', function(e) {
             $($.modalWrapper).modal('hide');
         });
 
