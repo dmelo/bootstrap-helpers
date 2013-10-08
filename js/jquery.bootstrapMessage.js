@@ -131,17 +131,25 @@ var MESSAGE_WARNING = 'alert-warining',
 
     $.bootstrapMessageOff = function(id) {
         console.log("bootstrapMessageOff id: " + id);
+        console.log(globalId);
         console.log(messageQueue);
-        if (null !== currentMessage && currentMessage.id === id) {
-            // Fade out message being displayed.
+
+        if (undefined === id) {
+            messageQueue.pop();
             currentMessage.hide();
             currentMessage = null;
         } else {
-            // Search for message on messageQueue and delete it.
-            for (var i = 0; i < messageQueue.length; i++) {
-                if (messageQueue[i].id === id) {
-                    messageQueue.splice(i, 1);
-                    break;
+            if (null !== currentMessage && currentMessage.id === id) {
+                // Fade out message being displayed.
+                currentMessage.hide();
+                currentMessage = null;
+            } else {
+                // Search for message on messageQueue and delete it.
+                for (var i = 0; i < messageQueue.length; i++) {
+                    if (messageQueue[i].id === id) {
+                        messageQueue.splice(i, 1);
+                        break;
+                    }
                 }
             }
         }
