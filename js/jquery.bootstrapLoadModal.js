@@ -1,9 +1,8 @@
 /**
  * jquery.bootstrapLoadModal.js
  *
- * @package Amuzi
+ * @package bootstrap-helpers
  * @version 1.0
- * Amuzi - Online music
  * Copyright (C) 2010-2013  Diogo Oliveira de Melo
  *
  * This program is free software: you can redistribute it and/or modify
