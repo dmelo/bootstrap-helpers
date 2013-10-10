@@ -136,8 +136,15 @@ var MESSAGE_WARNING = 'alert-warining',
 
         if (undefined === id) {
             messageQueue.pop();
-            currentMessage.hide();
+            if (null !== currentMessage) {
+                currentMessage.hide();
+            } else {
+                $('div.alert').fadeTo('slow', 0.0, function() {
+                    $('div.alert').css('display', 'none');
+                });
+            }
             currentMessage = null;
+
         } else {
             if (null !== currentMessage && currentMessage.id === id) {
                 // Fade out message being displayed.
