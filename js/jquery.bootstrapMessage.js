@@ -178,5 +178,11 @@ var MESSAGE_WARNING = 'alert-warining',
     $(document).ready(function() {
         $('.alert').css('left', ($(window).width() - 600) / 2);
         setInterval($.bootstrapMessageRun, 1000);
+
+        if (1 === $('#status-message').length && '#' !== (message = $('#status-message p').html())) {
+            st = $('#status-message span.status').html();
+
+            $.bootstrapMessage(message, st);
+        }
     });
 })(jQuery);
