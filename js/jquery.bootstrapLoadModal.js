@@ -42,7 +42,7 @@
 
     $.bootstrapLoadModalInit = function() {
         if($('#load-modal-wrapper').length == 0) {
-            $('body').append('<div id="load-modal-wrapper" class="modal hide fade"><div class="modal-header"><a href="#" class="close" data-dismiss="modal">&times;</a><h3></h3></div><div class="modal-body"></div></div>');
+            $('body').append('<div id="load-modal-wrapper" class="modal fade"><div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> <h4 class="modal-title"></h4> </div> <div class="modal-body"> <p>One fine body&hellip;</p> </div> </div> </div> </div>');
         }
 
         $(document).on('click', '.loadModal', function(e) {
@@ -62,8 +62,8 @@
                 $.post($(this).attr('href'), {
                 }, function(data) {
                     $($.modalWrapper + ' .modal-body').html(data);
-                    $($.modalWrapper + ' h3').html(title);
-                    $($.modalWrapper).modal('show');
+                    $($.modalWrapper + ' h4').html(title);
+                    $($.modalWrapper).modal({show: true});
                     var funcName = 'rendered_' + callback;
 
                     try {

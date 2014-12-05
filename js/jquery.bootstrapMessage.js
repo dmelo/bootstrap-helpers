@@ -43,11 +43,18 @@
  *
  */
 
-var MESSAGE_WARNING = 'alert-warining',
-    MESSAGE_ERROR = 'alert-error',
+var MESSAGE_WARNING = 'alert-warning',
+    MESSAGE_ERROR = 'alert-danger',
     MESSAGE_SUCCESS = 'alert-success',
     MESSAGE_INFO = 'alert-info',
-    DEFAULT_TIMEOUT = 5000;
+    DEFAULT_TIMEOUT = 5000,
+    cssClass = {
+        'warning': MESSAGE_WARNING,
+        'danger': MESSAGE_ERROR,
+        'error': MESSAGE_ERROR,
+        'success': MESSAGE_SUCCESS,
+        'info': MESSAGE_INFO,
+    };
 
 
 (function($) {
@@ -64,12 +71,12 @@ var MESSAGE_WARNING = 'alert-warining',
 
         this.show = function() {
             console.log('show: ' + this.text + ", " + this.type + ", " + this.timeout);
-            this.type = typeof(this.type) == 'undefined' ? MESSAGE_INFO : this.type;
+            this.type = typeof(this.type) == 'undefined' || !(this.type in cssClass) ? MESSAGE_INFO : this.type;
             $('div.alert').removeClass(MESSAGE_WARNING)
                 .removeClass(MESSAGE_ERROR)
                 .removeClass(MESSAGE_SUCCESS)
                 .removeClass(MESSAGE_INFO);
-            $('div.alert').addClass('alert-' + type);
+            $('div.alert').addClass(cssClass[this.type]);
 
             $('div.alert p').html(this.text);
             $('div.alert').css('display', 'block');
